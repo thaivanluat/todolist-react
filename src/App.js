@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component}from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Todos from './Todos'
+import AddTodo from './AddTodo'
+
+class App extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+
+  state = {
+    todos : [
+      {id: uuidv4(), content: 'Buy coffee', isCompleted: true},
+      {id: uuidv4(), content: 'Make coffee', isCompleted: false},
+    ]
+  }
+
+  deleteTodo = (id) => {
+    const todos = this.state.todos.filter(todo => {
+      return todo.id !== id
+    });
+
+    this.setState({
+      todos: todos   
+    })
+  }
+
+  completeTodo = (id) => {
+    const [...todos] = this.state.todos;
+
+    const index = todos.findIndex(todo => todo.id === id);
+
+    const foundItem = todos[index];
+
+    todos[index] = { ...foundItem, isCompleted: !foundItem.isCompleted }
+
+    this.setState({
+      todos
+    })
+  }
+
+  addTodo = (todo) => {
+    todo.id = uuidv4()
+    todo.isCompleted = false;
+
+    let todos = [...this.state.todos, todo];
+
+    this.setState({
+      todos: todos
+    });
+  }
+
+  render() {
+    return (
+      <div className="todo-app container">
+        <h1 className="center blue-text">To do list</h1>
+        <Todos todos={this.state.todos} deleteTodo={this.deleteTodo} completeTodo={this.completeTodo}/>
+        <AddTodo addTodo={this.addTodo} />
+      </div>
+    );
+  }
 }
 
 export default App;
