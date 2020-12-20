@@ -1,7 +1,5 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+Simple to do list using react js and Materialize css
+![Img](https://user-images.githubusercontent.com/25612169/102716166-a57c7e00-430c-11eb-81e3-6a5f2bcf124c.png)
 ## Available Scripts
 
 In the project directory, you can run:
